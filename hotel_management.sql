@@ -9,7 +9,9 @@ CREATE TABLE rooms (
     room_number VARCHAR(10) NOT NULL UNIQUE,
     room_type VARCHAR(50) NOT NULL,
     price DECIMAL(10,2) NOT NULL,
-    status ENUM('available', 'occupied', 'maintenance') DEFAULT 'available'
+    status ENUM('available', 'occupied', 'maintenance') DEFAULT 'available',
+    image_path VARCHAR(255),
+    description TEXT
 );
 
 -- Table for guests
@@ -44,6 +46,18 @@ CREATE TABLE payments (
     FOREIGN KEY (booking_id) REFERENCES bookings(id)
 );
 
+-- Table for users (admin, receptionist, guest)
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('admin', 'receptionist', 'guest') DEFAULT 'guest',
+    guest_id INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (guest_id) REFERENCES guests(id)
+);
+
 -- Insert sample data
 INSERT INTO rooms (room_number, room_type, price, status) VALUES
 ('101', 'Single', 50.00, 'available'),
@@ -53,3 +67,16 @@ INSERT INTO rooms (room_number, room_type, price, status) VALUES
 INSERT INTO guests (name, email, phone, address) VALUES
 ('John Doe', 'john@example.com', '1234567890', '123 Main St'),
 ('Jane Smith', 'jane@example.com', '0987654321', '456 Elm St');
+
+-- Insert admin user (password: admin123)
+INSERT INTO users (username, email, password, role) VALUES
+('admin', 'admin@hotel.com', '$2y$10$xrUbdPc1v3VzQPLZlnOFuu0N1hGe7jXJxGXvFk/jR6Zr0A5nQaLQu', 'admin');
+
+-- Insert receptionist user (password: receptionist123)
+INSERT INTO users (username, email, password, role) VALUES
+('receptionist', 'receptionist@hotel.com', '$2y$10$xrUbdPc1v3VzQPLZlnOFuu0N1hGe7jXJxGXvFk/jR6Zr0A5nQaLQu', 'receptionist');
+
+-- Insert guest users (password: guest123)
+INSERT INTO users (username, email, password, role, guest_id) VALUES
+('guest1', 'guest1@hotel.com', '$2y$10$xrUbdPc1v3VzQPLZlnOFuu0N1hGe7jXJxGXvFk/jR6Zr0A5nQaLQu', 'guest', 1),
+('guest2', 'guest2@hotel.com', '$2y$10$xrUbdPc1v3VzQPLZlnOFuu0N1hGe7jXJxGXvFk/jR6Zr0A5nQaLQu', 'guest', 2);
