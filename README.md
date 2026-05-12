@@ -1,53 +1,48 @@
-# Programme de Gestion des Nombres Complexes
+# Système de Gestion d'Hôtel
 
-## Description
-Ce programme en C permet de gérer les nombres complexes avec les opérations suivantes :
-- **Créer** un nombre complexe en saisissant ses parties réelle et imaginaire
-- **Additionner** deux nombres complexes
-- **Calculer** le module (norme) d'un nombre complexe
-- **Afficher** un nombre complexe au format a + bi
+Un système complet de gestion d'hôtel écrit en PHP avec MySQL.
 
-## Fichiers
-- `complexe.h` : Fichier d'en-tête contenant la structure `Complexe` et les déclarations des fonctions
-- `complexe.c` : Implémentation des fonctions de gestion des nombres complexes
-- `main.c` : Programme principal avec un menu interactif
-- `Makefile` : Fichier de compilation
+## Installation
 
-## Compilation
+1. Assurez-vous que XAMPP est installé et que Apache et MySQL sont démarrés.
 
-### Avec make
-```bash
-make          # Compile le programme
-make run      # Compile et exécute le programme
-make clean    # Supprime les fichiers générés
-make rebuild  # Recompile depuis le début
-```
+2. Importez la base de données :
+   - Ouvrez phpMyAdmin (http://localhost/phpmyadmin)
+   - Créez une nouvelle base de données appelée `hotel_management`
+   - Importez le fichier `hotel_management.sql`
 
-### Sans make (GCC)
-```bash
-gcc -Wall -Wextra -std=c99 -lm -o complexes main.c complexe.c
-```
+3. Placez tous les fichiers PHP dans le répertoire `htdocs` de XAMPP (par exemple, `C:\xampp\htdocs\hotel_management\`).
 
-## Exécution
-```bash
-./complexes    # Sur Linux/Mac
-complexes.exe  # Sur Windows (après compilation)
-```
+4. Ouvrez votre navigateur et allez à `http://localhost/hotel_management/index.php`
 
-## Utilisation
-Le programme vous demande de saisir :
-1. Les parties réelle et imaginaire du premier nombre complexe (z1)
-2. Les parties réelle et imaginaire du deuxième nombre complexe (z2)
+## Fonctionnalités
 
-Il affiche ensuite :
-- Les deux nombres complexes saisis
-- Le module de chaque nombre complexe
-- La somme de z1 et z2
-- Le module de la somme
+- **Tableau de bord** : Vue d'ensemble avec statistiques
+- **Gestion des Chambres** : Ajouter, modifier, supprimer des chambres
+- **Gestion des Clients** : Ajouter, modifier, supprimer des clients
+- **Gestion des Réservations** : Créer et gérer des réservations
+- **Gestion des Paiements** : Enregistrer les paiements pour les réservations
 
-## Exemple d'exécution
-```
-=== PROGRAMME DE GESTION DES NOMBRES COMPLEXES ===
+## Structure de la Base de Données
+
+- `rooms` : Informations sur les chambres
+- `guests` : Informations sur les clients
+- `bookings` : Réservations
+- `payments` : Paiements associés aux réservations
+
+## Sécurité
+
+Ce système est basique et ne doit pas être utilisé en production sans améliorations de sécurité supplémentaires, telles que :
+- Validation des entrées
+- Authentification des utilisateurs
+- Chiffrement des données sensibles
+- Protection contre les injections SQL (bien que PDO soit utilisé, une validation supplémentaire est recommandée)
+
+## Dépannage
+
+- Assurez-vous que les permissions des fichiers sont correctes.
+- Vérifiez les logs d'erreur PHP dans `C:\xampp\php\logs\php_error_log`.
+- Assurez-vous que MySQL est en cours d'exécution.
 
 Création du premier nombre complexe (z1):
 Entrez la partie réelle du nombre complexe: 3
